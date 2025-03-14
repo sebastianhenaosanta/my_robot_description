@@ -1,5 +1,14 @@
 <?xml version="1.0"?>
-<robot name="my_robot">
+<robot name="my_robot" xmlns:xacro="https://wiki.ros.org/xacro">
+
+    <!--    XACRO VARIABLES-->
+    <xacro:property name="base_length" value="0.6" />
+    <xacro:property name="base_width" value="0.4" />
+    <xacro:property name="base_thick" value="0.2" />
+    <xacro:property name="wheel_radius" value="0.1" />
+    <xacro:property name="wheel_length" value="0.05" />
+    <xacro:property name="lidar_radius" value="0.1" />
+    <xacro:property name="lidar_length" value="0.05" />
 
     <!--    materials-->
     <material name="gray">
@@ -7,7 +16,7 @@
     </material>
 
     <material name="green">
-        <color rgba="0 0.6 0 1" />
+        <color rgba="0 0.6 0 0.6" />
     </material>
 
     <material name="white">
@@ -21,9 +30,9 @@
     <link name="base_link">
         <visual>
             <geometry>
-                <box size="0.6 0.4 0.2" />
+                <box size="${base_length} ${base_width} ${base_thick}" />
             </geometry>
-            <origin xyz="0 0 0.1" rpy="0 0 0" />
+            <origin xyz="0 0 ${base_thick/2}" rpy="0 0 0" />
             <material name="green" />
         </visual>
     </link>
@@ -32,7 +41,7 @@
     <link name="lidar">
         <visual>
             <geometry>
-                <cylinder radius="0.1" length="0.05" />
+                <cylinder radius="${lidar_radius}" length="${lidar_length}" />
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <material name="white" />
@@ -43,9 +52,9 @@
     <link name="right_wheel">
         <visual>
             <geometry>
-                <cylinder radius="0.1" length="0.05" />
+                <cylinder radius="${wheel_radius}" length="${wheel_length}" />
             </geometry>
-            <origin xyz="0 0 0" rpy="1.57 0 0" />
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
         </visual>
     </link>
 
@@ -53,9 +62,9 @@
     <link name="left_wheel">
         <visual>
             <geometry>
-                <cylinder radius="0.1" length="0.05" />
+                <cylinder radius="${wheel_radius}" length="${wheel_length}" />
             </geometry>
-            <origin xyz="0 0 0" rpy="1.57 0 0" />
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
         </visual>
     </link>
 
@@ -63,7 +72,7 @@
     <link name="caster_wheel">
         <visual>
             <geometry>
-                <sphere radius="0.05" />
+                <sphere radius="${wheel_radius/2.0}" />
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0" />
         </visual>
@@ -74,20 +83,20 @@
     <joint name="base_joint" type="fixed">
         <parent link="base_footprint" />
         <child link="base_link" />
-        <origin xyz="0 0 0.1" rpy="0 0 0" />
+        <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" />
     </joint>
 
 
     <joint name="base_lidar_joint" type="fixed">
         <parent link="base_link" />
         <child link="lidar" />
-        <origin xyz="0 0 0.225" rpy="0 0 0" />
+        <origin xyz="0 0 ${base_thick+lidar_length/2}" rpy="0 0 0" />
     </joint>
 
     <joint name="base_right_wheel_joint" type="continuous">
         <parent link="base_link" />
         <child link="right_wheel" />
-        <origin xyz="-0.15 -0.225  0" rpy="0 0 0" />
+        <origin xyz="-${base_length/4} -${(base_width + wheel_length)/2}  0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
     </joint>
 
@@ -95,7 +104,7 @@
     <joint name="base_left_wheel_joint" type="continuous">
         <parent link="base_link" />
         <child link="left_wheel" />
-        <origin xyz="-0.15 0.225  0" rpy="0 0 0" />
+        <origin xyz="-${base_length/4} ${(base_width + wheel_length)/2}  0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
     </joint>
 
@@ -103,7 +112,7 @@
     <joint name="base_caster_wheel_joint" type="fixed">
         <parent link="base_link" />
         <child link="caster_wheel" />
-        <origin xyz="0.2 0 -0.05" rpy="0 0 0" />
+        <origin xyz="${base_length/3.0} 0 -${wheel_radius/2.0}" rpy="0 0 0" />
     </joint>
 
 
