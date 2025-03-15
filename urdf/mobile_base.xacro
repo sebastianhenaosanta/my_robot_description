@@ -48,7 +48,16 @@
 
     <xacro:wheel_link prefix="right" />
 
-    <xacro:wheel_link prefix="left" />
+<!--    <xacro:wheel_link prefix="left" />-->
+    <link name="left_wheel_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://my_robot_description/meshes/left_tire.dae" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+    </link>
+
 
     <link name="caster_wheel">
         <visual>
