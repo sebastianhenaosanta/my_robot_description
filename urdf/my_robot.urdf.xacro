@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot name="my_robot" xmlns:xacro="https://wiki.ros.org/xacro">
-    <xacro:include filename="common_properties.xacro" />
-    <xacro:include filename="mobile_base.xacro" />
+    <xacro:include filename="common_properties.xacro" /> <!--INERTIA MACROS -->
+    <xacro:include filename="mobile_base.xacro" /> <!-- URDF DESCRIPTION -->
+    <xacro:include filename="mobile_base_gazebo.xacro" /> <!-- GAZEBO TAGS -->
 </robot>
