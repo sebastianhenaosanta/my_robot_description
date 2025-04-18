@@ -3,4 +3,7 @@
     <xacro:include filename="common_properties.xacro" /> <!--INERTIA MACROS -->
     <xacro:include filename="mobile_base.xacro" /> <!-- URDF DESCRIPTION -->
     <xacro:include filename="mobile_base_gazebo.xacro" /> <!-- GAZEBO TAGS -->
+
+    <xacro:include filename="camera.xacro" /> <!--URDF CAMERA DESCRIPTION -->
+
 </robot>
